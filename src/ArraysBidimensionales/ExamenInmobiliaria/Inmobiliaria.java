@@ -1,9 +1,7 @@
 package ArraysBidimensionales.ExamenInmobiliaria;
 
 import javax.print.DocFlavor;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class Inmobiliaria {
     private final static String[] DATOS_EMPLEADOS = {
@@ -268,6 +266,47 @@ public class Inmobiliaria {
 
     public ArrayList<Inmueble> getInmuebles() {
         return inmuebles;
+    }
+
+    //Devuelve un mapa en el que las claves son los municipios en
+    //los que hay al menos una vivienda, y los valores Sets con las viviendas que hay en ese
+    //municipio
+    public Map<String, Set<Vivienda>> viviendasPorMunicipio() {
+        HashMap<String,Set<Vivienda>> municipios = new HashMap<>();
+
+        for (Inmueble inm:inmuebles) {
+            String municipio = inm.getDireccion().getMunicipio();
+
+            if (!(municipios.containsKey(municipio))){
+                municipios.put(municipio, new HashSet<>());
+            }
+
+            municipios.get(municipio).add((Vivienda) inm);
+        }
+        return municipios;
+
+    }
+
+    //Devuelve un mapa en el que las claves son los estados posibles de
+    //los inmuebles, y los valores el número de inmuebles que hay en ese estado
+    public Map<String, Set<EstadoInmueble>> estadosInmuebles() {
+        HashMap<String, Set<EstadoInmueble>> estados = new HashMap<>();
+
+
+
+        return estados;
+    }
+
+    //Devuelve un mapa en el que las claves son los DNI de los
+    //empleados y los valores otro mapa en el que la clave es el nombre de la operación
+    //(alquiler o venta) y los valores el número de operaciones de ese tipo realizadas
+    public void operacionesPorDNI() {
+
+    }
+
+
+    //muestra por pantalla el mapa obtenido en el método anterior
+    public void imprimirOperacionesPorDNI() {
     }
 
     @Override
