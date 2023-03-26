@@ -24,7 +24,7 @@ public class Main {
 
         //System.out.println(Arrays.toString(im.empleadosSegundoApellidoEmpiezaPor("gar")));;
         //System.out.println(im.inmueblesPorMunicipio("siero"));;
-        System.out.println(im.inmueblesPorCodigo());
+        //System.out.println(im.inmueblesPorCodigo());
         //System.out.println(im.inmueblesPorPrecio());
         //System.out.println(im.inmueblesSinFincas());
         //System.out.println(im.precioMedioVentaViviendas());
@@ -40,5 +40,9 @@ public class Main {
         //im.imprimirMatrizOperaciones(im.getEmpleados().get(0).getOperaciones());
         //im.imprimirMatrizOperaciones(im.getEmpleados().get(1).getOperaciones());
         //im.imprimirMatrizOperaciones(im.totalOperaciones());
+
+        System.out.println(im.viviendasPorMunicipio());
+        System.out.println(im.estadosInmuebles());
+        im.imprimirOperacionesPorDNI();
     }
 }

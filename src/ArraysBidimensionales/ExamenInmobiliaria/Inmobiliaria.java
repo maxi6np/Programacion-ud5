@@ -269,19 +269,23 @@ public class Inmobiliaria {
     }
 
     //Devuelve un mapa en el que las claves son los municipios en
-    //los que hay al menos una vivienda, y los valores Sets con las viviendas que hay en ese
-    //municipio
+    //los que hay al menos una vivienda, y los valores Sets con las viviendas que hay en ese municipio
     public Map<String, Set<Vivienda>> viviendasPorMunicipio() {
-        HashMap<String,Set<Vivienda>> municipios = new HashMap<>();
+        HashMap<String, Set<Vivienda>> municipios = new HashMap<>();
 
-        for (Inmueble inm:inmuebles) {
-            String municipio = inm.getDireccion().getMunicipio();
 
-            if (!(municipios.containsKey(municipio))){
-                municipios.put(municipio, new HashSet<>());
+        for (Inmueble inm : inmuebles) {
+            if (municipios.containsKey(inm.getDireccion().getMunicipio())) {
+                if (inm instanceof Vivienda) {
+                    Set<Vivienda> setVivienda = municipios.get(inm.getDireccion().getMunicipio());
+                    setVivienda.add((Vivienda) inm);
+                }
+            } else {
+                Set<Vivienda> setVivienda = new HashSet<>();
+                setVivienda.add((Vivienda) inm);
+                municipios.put(inm.getDireccion().getMunicipio(), setVivienda);
+
             }
-
-            municipios.get(municipio).add((Vivienda) inm);
         }
         return municipios;
 
@@ -289,9 +293,20 @@ public class Inmobiliaria {
 
     //Devuelve un mapa en el que las claves son los estados posibles de
     //los inmuebles, y los valores el número de inmuebles que hay en ese estado
-    public Map<String, Set<EstadoInmueble>> estadosInmuebles() {
-        HashMap<String, Set<EstadoInmueble>> estados = new HashMap<>();
+    public Map<EstadoInmueble, Integer> estadosInmuebles() {
+        HashMap<EstadoInmueble, Integer> estados = new HashMap<>();
+        HashSet<EstadoInmueble> setEstados = new HashSet<>();
 
+        for (Inmueble inm : inmuebles) {
+            setEstados.add(inm.getEstadoInmueble());
+
+            if (estados.containsKey(inm.getEstadoInmueble())) {
+                int contador = estados.get(inm.getEstadoInmueble());
+                estados.put(inm.getEstadoInmueble(), contador + 1);
+            } else {
+                estados.put(inm.getEstadoInmueble(),1);
+            }
+        }
 
 
         return estados;
