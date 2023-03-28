@@ -1,6 +1,5 @@
 package ArraysBidimensionales.ExamenInmobiliaria;
 
-import javax.print.DocFlavor;
 import java.util.*;
 
 public class Inmobiliaria {
@@ -272,22 +271,22 @@ public class Inmobiliaria {
     //los que hay al menos una vivienda, y los valores Sets con las viviendas que hay en ese municipio
     public Map<String, Set<Vivienda>> viviendasPorMunicipio() {
         HashMap<String, Set<Vivienda>> municipios = new HashMap<>();
-
+        HashSet<Vivienda> viviendas;
 
         for (Inmueble inm : inmuebles) {
-            if (municipios.containsKey(inm.getDireccion().getMunicipio())) {
-                if (inm instanceof Vivienda) {
-                    Set<Vivienda> setVivienda = municipios.get(inm.getDireccion().getMunicipio());
-                    setVivienda.add((Vivienda) inm);
+            if (inm instanceof Vivienda viv) {
+                String municipio = viv.getDireccion().getMunicipio();
+                if (municipios.containsKey(municipio)) {
+                    municipios.get(municipios).add(viv);
+                } else {
+                    viviendas = new HashSet<>();
+                    municipios.put(municipio, viviendas);
+                    viviendas.add(viv);
                 }
-            } else {
-                Set<Vivienda> setVivienda = new HashSet<>();
-                setVivienda.add((Vivienda) inm);
-                municipios.put(inm.getDireccion().getMunicipio(), setVivienda);
-
             }
         }
         return municipios;
+
 
     }
 
@@ -295,17 +294,18 @@ public class Inmobiliaria {
     //los inmuebles, y los valores el número de inmuebles que hay en ese estado
     public Map<EstadoInmueble, Integer> estadosInmuebles() {
         HashMap<EstadoInmueble, Integer> estados = new HashMap<>();
-        HashSet<EstadoInmueble> setEstados = new HashSet<>();
 
-        for (Inmueble inm : inmuebles) {
-            setEstados.add(inm.getEstadoInmueble());
+        for (EstadoInmueble estado : EstadoInmueble.values()) {
+            estados.put(estado, 0);
+        }
 
-            if (estados.containsKey(inm.getEstadoInmueble())) {
-                int contador = estados.get(inm.getEstadoInmueble());
-                estados.put(inm.getEstadoInmueble(), contador + 1);
-            } else {
-                estados.put(inm.getEstadoInmueble(),1);
+        for (int i = 0; i < inmuebles.size(); i++) {
+            Integer contador = estados.get(inmuebles.get(i).getEstadoInmueble());
+            if (contador == null) {
+                contador = 0;
             }
+            contador++;
+            estados.put(inmuebles.get(i).getEstadoInmueble(), contador);
         }
 
 
@@ -315,14 +315,65 @@ public class Inmobiliaria {
     //Devuelve un mapa en el que las claves son los DNI de los
     //empleados y los valores otro mapa en el que la clave es el nombre de la operación
     //(alquiler o venta) y los valores el número de operaciones de ese tipo realizadas
-    public void operacionesPorDNI() {
+    public HashMap<String, Map<String, Double>> operacionesPorDNI() {
+        HashMap<String, Map<String, Double>> operacionesDNI = new HashMap<>();
+        HashMap<String, Double> op = new HashMap<>();
+
+        for (Empleado e : empleados) {
+            String dni = e.getDNI();
+            double[][] operaciones = e.getOperaciones();
+            double valorAlquiler = 0;
+            double valorVenta = 0;
+
+            valorAlquiler = e.importeTotalAlquileres(operaciones);
+            valorVenta = e.importeTotalVentas(operaciones);
+
+            op.put(String.valueOf(EstadoInmueble.ALQUILADO), valorAlquiler);
+            op.put(String.valueOf(EstadoInmueble.VENDIDO), valorVenta);
+
+            operacionesDNI.put(dni, op);
+        }
+        return operacionesDNI;
 
     }
 
 
     //muestra por pantalla el mapa obtenido en el método anterior
     public void imprimirOperacionesPorDNI() {
+
+        for (Map.Entry<String, Map<String, Double>> e : operacionesPorDNI().entrySet()) {
+            System.out.print("\n---" + e.getKey() + "\n\t");
+            for (Map.Entry<String, Double> a : e.getValue().entrySet()) {
+                System.out.print(a.getKey() + " " + a.getValue() + "\n");
+            }
+        }
+
     }
+
+    public HashMap<Estadisticas, Integer> estadisticasViviendas() {
+        HashMap<Estadisticas, Integer> estadisticas = new HashMap<>();
+
+        for (Estadisticas e: Estadisticas.values()) {
+            estadisticas.put(e, 0);
+        }
+
+        for (Inmueble inm : inmuebles) {
+            if (inm instanceof Vivienda){
+                if (inm.getSuperficie() > estadisticas.get(Estadisticas.MAX_SUPERFICIE)){
+                    estadisticas.put(Estadisticas.MAX_SUPERFICIE,inm.getSuperficie());
+                }
+                if (((Vivienda) inm).getNumAseos() > estadisticas.get(Estadisticas.MAX_ASEOS)){
+                    estadisticas.put(Estadisticas.MAX_ASEOS,((Vivienda) inm).getNumAseos());
+                }
+                if (((Vivienda) inm).getNumHabitaciones() > estadisticas.get(Estadisticas.MAX_HABITACIONES)){
+                    estadisticas.put(Estadisticas.MAX_HABITACIONES,((Vivienda) inm).getNumHabitaciones());
+                }
+            }
+        }
+
+        return estadisticas;
+    }
+
 
     @Override
     public String toString() {

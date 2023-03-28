@@ -2,7 +2,7 @@ package ArraysBidimensionales.ExamenInmobiliaria;
 
 import java.util.Arrays;
 
-public class Empleado{
+public class Empleado {
     public String DNI;
     public String nombre;
     public String apellidos;
@@ -17,10 +17,9 @@ public class Empleado{
         operaciones = new double[FILAS][COLUMAS];
     }
 
-    public void modificarOperaciones(double precio, int operacion, int tipo){
+    public void modificarOperaciones(double precio, int operacion, int tipo) {
         operaciones[operacion][tipo] += precio;
     }
-
 
 
     //Todos los atributos deben tener un get.
@@ -54,6 +53,32 @@ public class Empleado{
 
     public void setOperaciones(double[][] operaciones) {
         this.operaciones = operaciones;
+    }
+
+    public double importeTotalAlquileres(double[][] operaciones) {
+        double suma = 0;
+
+        for (int i = 0; i < operaciones.length; i++) {
+            for (int j = 0; j < operaciones.length; j++) {
+                if (i == 0) {
+                    suma += operaciones[i][j];
+                }
+            }
+        }
+        return suma;
+    }
+
+    public double importeTotalVentas(double[][] operaciones) {
+        double suma = 0;
+
+        for (int i = 0; i < operaciones.length; i++) {
+            for (int j = 0; j < operaciones.length; j++) {
+                if (i == 1) {
+                    suma += operaciones[i][j];
+                }
+            }
+        }
+        return suma;
     }
 
     @Override
