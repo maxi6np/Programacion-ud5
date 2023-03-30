@@ -7,9 +7,9 @@ public class Venta {
     public String dni;
     public HashMap<Producto,Integer> productoHashMap;
 
-    public Venta() {
+    public Venta(String dni, HashMap<Producto,Integer> productoHashMap) {
         this.dni = dni;
-        productoHashMap = new HashMap<>();
+        this.productoHashMap = productoHashMap;
     }
 
     public String getDni() {

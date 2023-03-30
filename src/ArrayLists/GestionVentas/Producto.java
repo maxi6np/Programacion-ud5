@@ -1,6 +1,5 @@
 package ArrayLists.GestionVentas;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 public class Producto implements Comparable<Producto> {
@@ -8,14 +7,14 @@ public class Producto implements Comparable<Producto> {
     public String nombre;
     public String categoria;
     public double precio;
-    public int restantes;
+    public int existencias;
 
-    public Producto(String codigo, String nombre, String categoria, double precio, int restantes) {
+    public Producto(String codigo, String nombre, String categoria, double precio, int existencias) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
-        this.restantes = restantes;
+        this.existencias = existencias;
     }
 
     public String getCodigo() {
@@ -50,12 +49,12 @@ public class Producto implements Comparable<Producto> {
         this.precio = precio;
     }
 
-    public int getRestantes() {
-        return restantes;
+    public int getExistencias() {
+        return existencias;
     }
 
-    public void setRestantes(int restantes) {
-        this.restantes = restantes;
+    public void setExistencias(int existencias) {
+        this.existencias = existencias;
     }
 
 
@@ -80,7 +79,7 @@ public class Producto implements Comparable<Producto> {
         sb.append(", nombre='").append(nombre).append('\'');
         sb.append(", categoria='").append(categoria).append('\'');
         sb.append(", precio=").append(precio);
-        sb.append(", restantes=").append(restantes);
+        sb.append(", existencias=").append(existencias);
         sb.append('}');
         return sb.toString();
     }

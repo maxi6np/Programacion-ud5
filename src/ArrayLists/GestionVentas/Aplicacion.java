@@ -1,5 +1,6 @@
 package ArrayLists.GestionVentas;
 
+import javax.print.DocFlavor;
 import java.util.*;
 
 public class Aplicacion {
@@ -36,11 +37,11 @@ public class Aplicacion {
         for (Producto p : listaProductos.keySet()) {
             if (p.getCodigo().equalsIgnoreCase(codigo)) {
                 encontrado = true;
-                int existenciasNuevas = p.getRestantes() + cantidad;
+                int existenciasNuevas = p.getExistencias() + cantidad;
                 if (existenciasNuevas < 0) {
-                    p.setRestantes(0);
+                    p.setExistencias(0);
                 } else {
-                    p.setRestantes(existenciasNuevas);
+                    p.setExistencias(existenciasNuevas);
                 }
             }
         }
@@ -54,7 +55,7 @@ public class Aplicacion {
     public boolean borrarProducto(String codigo) {
 
         for (Producto p : listaProductos.keySet()) {
-            if (p.getCodigo().equalsIgnoreCase(codigo) && p.getRestantes() == 0) {
+            if (p.getCodigo().equalsIgnoreCase(codigo) && p.getExistencias() == 0) {
                 listaProductos.remove(p);
                 return true;
             }
@@ -86,7 +87,7 @@ public class Aplicacion {
 
         for (Producto p : listaProductos.keySet()) {
             String categoria = p.getCodigo();
-            int restantes = p.getRestantes();
+            int restantes = p.getExistencias();
 
             existencias.put(categoria, restantes);
         }
@@ -124,8 +125,44 @@ public class Aplicacion {
     //Comprueba que haya suficientes existencias de todos los productos y si las hay, crea
     //un objeto de tipo venta, lo añade al listado de ventas y lo retorna. Si no se ha podido
     //realizar, se devuelve null
-    public Venta generarVenta(String DNI, Map<String, Integer> venta) {
+    public Venta generarVenta(String DNI, Map<String, Integer> ventas) {
+        HashMap<Producto, Integer> productosVendidos = new HashMap<>();
+        int contadorVentas = 0;
 
+        for (String codigo : ventas.keySet()) {
+            Producto producto = buscarProducto(codigo);
+            if (producto == null){
+                System.out.println("El producto con código " + codigo + " no existe");
+                return null;
+            }
+            int unidadesDeseadas = ventas.get(codigo);
+            if (producto.getExistencias() < unidadesDeseadas) {
+                System.out.println("No hay unidades suficientes para este producto");
+                return null;
+            }
+
+        }
+
+        for (String codigo: ventas.keySet()) {
+            Producto producto = buscarProducto(codigo);
+            int unidadesDeseadas = ventas.get(codigo);
+
+            producto.setExistencias(producto.getExistencias() - unidadesDeseadas);
+            productosVendidos.put(producto,unidadesDeseadas);
+
+        }
+        Venta venta = new Venta(DNI,productosVendidos);
+        listaVentas.put(venta,contadorVentas + 1);
+
+        return venta;
+    }
+
+    private Producto buscarProducto(String codigo){
+        for (Producto producto: listaProductos.keySet()) {
+            if (producto.getCodigo().equals(codigo)){
+                return producto;
+            }
+        }
         return null;
     }
 
@@ -149,7 +186,7 @@ public class Aplicacion {
             System.out.println("------------ Código " + p.getCodigo() + "-------------");
             System.out.println("Nombre: " + p.getNombre());
             System.out.println("Categoría: " + p.getCategoria());
-            System.out.println("Unidades: " + p.getRestantes());
+            System.out.println("Unidades: " + p.getExistencias());
             System.out.println("Precio: " + p.getPrecio() + "€");
 
         }

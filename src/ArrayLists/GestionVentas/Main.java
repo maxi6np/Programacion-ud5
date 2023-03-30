@@ -1,6 +1,7 @@
 package ArrayLists.GestionVentas;
 
 import java.sql.SQLOutput;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,6 +32,10 @@ public class Main {
 
         //System.out.println(app.productosPorCategoria());;
         //app.mostrarProductos();
+
+        HashMap<String,Integer> producto = new HashMap<>();
+        producto.put("1",3);
+        System.out.println(app.generarVenta("8989",producto));
 
 
 
