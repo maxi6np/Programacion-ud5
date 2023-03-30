@@ -48,17 +48,17 @@ public class Aplicacion {
 
     public void anadirDiccionario(HashMap<String, HashSet<String>> diccionario) {
 
-        for (String palabra : diccionario.keySet()) {
-            HashSet<String> sinonimos = miDiccionario.get(palabra);
-            for (String sinonimo : sinonimos) {
-                anadirSinonimo(palabra, sinonimo);
+        for (String clave : diccionario.keySet()) {
+            HashSet<String> sinonimos = diccionario.get(clave);
+            for (String sinonimo: sinonimos) {
+                anadirSinonimo(clave,sinonimo);
             }
         }
     }
 
     public void imprimirDiccionario() {
         for (String palabra : miDiccionario.keySet()) {
-            System.out.print(palabra  + ": ");
+            System.out.print(palabra + ": ");
             HashSet<String> sinonimos = miDiccionario.get(palabra);
             for (String sinonimo : sinonimos) {
                 System.out.print(sinonimo + " ");

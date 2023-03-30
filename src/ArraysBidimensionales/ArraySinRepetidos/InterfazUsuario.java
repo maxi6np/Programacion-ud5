@@ -1,4 +1,4 @@
-package ArraySinRepetidos;
+package ArraysBidimensionales.ArraySinRepetidos;
 
 import java.util.Scanner;
 

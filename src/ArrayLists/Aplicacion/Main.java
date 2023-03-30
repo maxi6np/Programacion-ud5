@@ -25,6 +25,22 @@ public class Main {
         System.out.println("Obtener sinónimos de " + palabra + ": " + app.obtenerSinonimo(palabra));
 
 
+        System.out.println("Introduciendo nuevo diccionario...");
+        HashMap<String, HashSet<String>> diccionario2 = new HashMap<>();
+        HashSet<String> sinonimos1 = new HashSet<>();
+        sinonimos1.add("fuerte");
+        sinonimos1.add("potente");
+        diccionario2.put("poderoso", sinonimos1);
+
+        HashSet<String> sinonimos2 = new HashSet<>();
+        sinonimos2.add("veloz");
+        sinonimos2.add("rápido");
+        diccionario2.put("ágil", sinonimos2);
+
+        app.anadirDiccionario(diccionario2);
+        app.imprimirDiccionario();
+
+
     }
 
 
