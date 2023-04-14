@@ -1,4 +1,4 @@
-package ArrayLists.Tarea10;
+package ArrayLists.GeneradorPersonas;
 
 import java.util.Comparator;
 

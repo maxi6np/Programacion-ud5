@@ -1,4 +1,4 @@
-package ArrayLists.Tarea10;
+package ArrayLists.GeneradorPersonas;
 
 import java.util.*;
 
@@ -32,7 +32,7 @@ public class GeneradorPersonas {
      */
     public static final List<Persona> genera(int nPersonas) {
         List<Persona> personasNuevas = new ArrayList<>();
-        List<String> nombresUsados= new ArrayList<>();
+        List<String> nombresUsados = new ArrayList<>();
         Random random = new Random();
         String nombre = "";
         String apellidos = "";
@@ -40,7 +40,7 @@ public class GeneradorPersonas {
         for (int i = 0; i < nPersonas; i++) {
             if (nPersonas <= NOMBRES.length) {
                 nombre = NOMBRES[random.nextInt(NOMBRES.length)];
-                while(nombresUsados.contains(nombre)){
+                while (nombresUsados.contains(nombre)) {
                     nombre = NOMBRES[random.nextInt(NOMBRES.length)];
                 }
                 nombresUsados.add(nombre);
@@ -52,7 +52,7 @@ public class GeneradorPersonas {
             String apellido2 = APELLIDOS[random.nextInt(APELLIDOS.length)];
             apellidos = apellido1.concat(" ").concat(apellido2);
 
-            int edad = random.nextInt(MAX_EDAD) + MIN_EDAD;
+            int edad = random.nextInt(MAX_EDAD - MIN_EDAD) + MIN_EDAD;
             Persona persona = new Persona(nombre, apellidos, edad);
             personasNuevas.add(persona);
         }

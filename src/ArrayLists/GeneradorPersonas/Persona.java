@@ -1,4 +1,4 @@
-package ArrayLists.Tarea10;
+package ArrayLists.GeneradorPersonas;
 
 public class Persona {
 

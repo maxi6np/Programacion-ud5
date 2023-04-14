@@ -1,4 +1,4 @@
-package ArrayLists.Tarea10;
+package ArrayLists.GeneradorPersonas;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ public class Main {
         //System.out.println(repeticionApellidos());
         //mostrarMapaSimple(repeticionApellidos());
         //System.out.println(personasPorRangoEdad());
-        //mostrarMapaConLista();
+        mostrarMapaConLista(personasPorRangoEdad());
         //System.out.println(borrarPorEdad(70,90));
     }
 
@@ -138,26 +138,24 @@ public class Main {
      */
     private static Map<String, List<Persona>> personasPorRangoEdad() {
         Map<String, List<Persona>> personasPorRangoEdad = new HashMap<>();
-        int limInferior = 18;
-        int limSuperior = 19;
-        int contador = 0;
-        List<Persona> personasRango = new ArrayList<>();
 
         for (Persona p : personas) {
-            contador++;
-            String rango = limInferior + "-" + limSuperior;
             int edad = p.getEdad();
-            if (edad >= limInferior && edad <= limSuperior) {
-                personasRango.add(p);
-                personasPorRangoEdad.put(rango, personasRango);
+            int limiteInferior;
+            String rango;
+            if (edad == 18 || edad == 19) {
+                limiteInferior = 18;
+                rango = limiteInferior + "-" + (limiteInferior + 1);
+            } else {
+                limiteInferior = (edad / 10) * 10;
+                rango = limiteInferior + "-" + (limiteInferior + 9);
             }
 
-            if (contador == 1) {
-                limInferior += 2;
-            } else {
-                limInferior += 10;
+            if (!personasPorRangoEdad.containsKey(rango)) {
+                personasPorRangoEdad.put(rango, new ArrayList<>());
             }
-            limSuperior += 10;
+
+            personasPorRangoEdad.get(rango).add(p);
         }
 
         return personasPorRangoEdad;
@@ -171,12 +169,13 @@ public class Main {
      * @param mapa
      */
     private static void mostrarMapaConLista(Map<String, List<Persona>> mapa) {
-        Iterator<Map.Entry<String, List<Persona>>> it = mapa.entrySet().iterator();
-        while(it.hasNext()){
-            Map.Entry<String, List<Persona>> siguiente = it.next();
-            mostrarPersonas(mapa.get(siguiente));
-            System.out.println(" -> ");
-            System.out.println(mapa.keySet());
+        for (Map.Entry<String, List<Persona>> entrada : mapa.entrySet()) {
+            String rango = entrada.getKey();
+            List<Persona> nombres = entrada.getValue();
+
+            System.out.print(rango + " -> ");
+            mostrarPersonas(nombres);
+
         }
     }
 
@@ -190,7 +189,7 @@ public class Main {
     private static int borrarPorEdad(int min, int max) {
         List<Persona> personasBorradas = new ArrayList<>();
         for (Persona p : personas) {
-            if (p.getEdad() >= min && p.getEdad() <= max){
+            if (p.getEdad() >= min && p.getEdad() <= max) {
                 personasBorradas.add(p);
             }
         }
