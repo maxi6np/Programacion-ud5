@@ -1,6 +1,7 @@
 package ArrayLists.GestionVentas;
 
 import javax.print.DocFlavor;
+import java.security.UnrecoverableEntryException;
 import java.util.*;
 
 public class Aplicacion {
@@ -67,11 +68,11 @@ public class Aplicacion {
     //los productos pertenecientes a dicha categoría. Devuelve false si no se ha encontrado
     //ningún producto con esa categoría
     public boolean borrarProductosCategoria(String nombreCategoria) {
-        Iterator<Map.Entry<Producto,Integer>> iterator = listaProductos.entrySet().iterator();
+        Iterator<Map.Entry<Producto, Integer>> iterator = listaProductos.entrySet().iterator();
         boolean encontrado = false;
 
         while (iterator.hasNext()) {
-            Map.Entry<Producto,Integer> entrada = iterator.next();
+            Map.Entry<Producto, Integer> entrada = iterator.next();
             if (entrada.getKey().getCategoria().equalsIgnoreCase(nombreCategoria)) {
                 iterator.remove();
                 encontrado = true;
@@ -131,35 +132,33 @@ public class Aplicacion {
 
         for (String codigo : ventas.keySet()) {
             Producto producto = buscarProducto(codigo);
-            if (producto == null){
+            if (producto == null) {
                 System.out.println("El producto con código " + codigo + " no existe");
                 return null;
             }
-            int unidadesDeseadas = ventas.get(codigo);
-            if (producto.getExistencias() < unidadesDeseadas) {
-                System.out.println("No hay unidades suficientes para este producto");
+            int udsDeseadas = ventas.get(codigo);
+            if (udsDeseadas > producto.getExistencias()) {
+                System.out.println("No hay suficientes existencias del producto con código " + codigo);
                 return null;
             }
-
         }
 
-        for (String codigo: ventas.keySet()) {
+        for (String codigo : ventas.keySet()) {
             Producto producto = buscarProducto(codigo);
-            int unidadesDeseadas = ventas.get(codigo);
+            int udsDeseadas = ventas.get(codigo);
 
-            producto.setExistencias(producto.getExistencias() - unidadesDeseadas);
-            productosVendidos.put(producto,unidadesDeseadas);
-
+            producto.setExistencias(producto.getExistencias() - udsDeseadas);
+            productosVendidos.put(producto, udsDeseadas);
         }
-        Venta venta = new Venta(DNI,productosVendidos);
-        listaVentas.put(venta,contadorVentas + 1);
+        Venta venta = new Venta(DNI, productosVendidos);
+        listaVentas.put(venta, contadorVentas + 1);
 
         return venta;
     }
 
-    private Producto buscarProducto(String codigo){
-        for (Producto producto: listaProductos.keySet()) {
-            if (producto.getCodigo().equals(codigo)){
+    private Producto buscarProducto(String codigo) {
+        for (Producto producto : listaProductos.keySet()) {
+            if (producto.getCodigo().equalsIgnoreCase(codigo)) {
                 return producto;
             }
         }
@@ -189,8 +188,8 @@ public class Aplicacion {
             System.out.println("Unidades: " + p.getExistencias());
             System.out.println("Precio: " + p.getPrecio() + "€");
 
+
         }
-
-
     }
+
 }

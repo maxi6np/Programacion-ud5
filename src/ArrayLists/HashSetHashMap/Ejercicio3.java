@@ -1,10 +1,10 @@
-package ArrayLists.HashSetHashMap.Ejercicio3;
+package ArrayLists.HashSetHashMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Main {
+public class Ejercicio3 {
     //Supongamos que tienes una lista de estudiantes con sus notas en una clase y
     // deseas saber cuál es la nota promedio para cada estudiante.
     // En este caso, puedes utilizar un HashMap para almacenar los estudiantes como clave
@@ -21,8 +21,7 @@ public class Main {
         listaEstudiantes.add("Pedro:3");
         listaEstudiantes.add("Ana:10");
 
-
-        HashMap<String, List<Integer>> mapEstudiantes = new HashMap<String, List<Integer>>();
+HashMap<String, List<Integer>> mapEstudiantes = new HashMap<String, List<Integer>>();
 
         for (String estudiante : listaEstudiantes) {
             String[] partes = estudiante.split(":");
