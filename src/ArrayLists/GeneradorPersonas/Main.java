@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-    private static final List<Persona> personas = new ArrayList<>();
+    private static List<Persona> personas = new ArrayList<>();
 
     public static void main(String[] args) {
         generarPersonas(10);
@@ -16,6 +16,8 @@ public class Main {
         //System.out.println(personasPorRangoEdad());
         mostrarMapaConLista(personasPorRangoEdad());
         //System.out.println(borrarPorEdad(70,90));
+
+
     }
 
     /**
@@ -137,9 +139,11 @@ public class Main {
      * @return
      */
     private static Map<String, List<Persona>> personasPorRangoEdad() {
-        Map<String, List<Persona>> personasPorRangoEdad = new HashMap<>();
+        Map<String, List<Persona>> personasPorRangoEdad = new LinkedHashMap<>();
+        personas.sort(new ComparadorEdad());
+        List<Persona> ordenadas = new ArrayList<>(personas);
 
-        for (Persona p : personas) {
+        for (Persona p : ordenadas) {
             int edad = p.getEdad();
             int limiteInferior;
             String rango;
