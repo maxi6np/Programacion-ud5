@@ -141,9 +141,9 @@ public class Main {
     private static Map<String, List<Persona>> personasPorRangoEdad() {
         Map<String, List<Persona>> personasPorRangoEdad = new LinkedHashMap<>();
         personas.sort(new ComparadorEdad());
-        List<Persona> ordenadas = new ArrayList<>(personas);
+        List<Persona> ordenadasPorEdad = new ArrayList<>(personas);
 
-        for (Persona p : ordenadas) {
+        for (Persona p : ordenadasPorEdad) {
             int edad = p.getEdad();
             int limiteInferior;
             String rango;
