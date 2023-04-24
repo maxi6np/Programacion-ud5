@@ -1,14 +1,16 @@
-package ArrayLists.Aeropuerto;
+package ArrayLists.Aeropuerto.pkgaeropuerto.modelo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Aeropuerto {
 
-	private Vuelo vuelos;
+	private Map<Vuelo,> vuelos;
 
 	public Aeropuerto() {
-		vuelos = ;
+		vuelos = new ;
 	}
 
 	/**
