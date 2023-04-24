@@ -1,129 +1,140 @@
 package ArrayLists.Aeropuerto.pkgaeropuerto.modelo;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Aeropuerto {
 
-	private Map<Vuelo,> vuelos;
+    private Map<String, Set<Vuelo>> vuelos;
 
-	public Aeropuerto() {
-		vuelos = new ;
-	}
+    public Aeropuerto() {
+        vuelos = new TreeMap<>();
+    }
 
-	/**
-	 * Añade un vuelo a la aerolinea correspondiente solo en el caso de que el vuelo
-	 * no estuviese ya introducido, si la aerolinea no existiese se añade tanto la
-	 * aerolinea como el vuelo.
-	 */
-	public void addVuelo(String aerolinea, Vuelo vuelo) {
+    /**
+     * Añade un vuelo a la aerolinea correspondiente solo en el caso de que el vuelo
+     * no estuviese ya introducido, si la aerolinea no existiese se añade tanto la
+     * aerolinea como el vuelo.
+     */
+    public void addVuelo(String aerolinea, Vuelo vuelo) {
+        if (!vuelos.containsKey(aerolinea)) {
+            vuelos.put(aerolinea, new HashSet<>());
+        }
+        Set<Vuelo> vuelas = vuelos.get(aerolinea);
+        vuelas.add(vuelo);
+    }
 
-	}
+    /**
+     * Imprime los vuelos por cada aerolinea ordenados por destino, tanto aerolineas
+     * como vuelos estaran ordenados alfabeticamente (Ver resultados de ejecucion)
+     */
+    public void ordenAerolineasAlfabetico() {
+        System.out.println(this);
+    }
 
-	/**
-	 * Imprime los vuelos por cada aerolinea ordenados por destino, tanto aerolineas
-	 * como vuelos estaran ordenados alfabeticamente (Ver resultados de ejecucion)
-	 */
-	public void ordenAerolineasAlfabetico() {
+    /**
+     * Muestra los vuelos regulares de la aerolinea pasada por parametro, se
+     * visualizaran de mayor a menor segun el numero de plazas
+     *
+     * @param aerolinea Aerolinea de la que se imprimiran los vuelos regulares
+     */
+    public void regularPorPlazas(String aerolinea) {
+        for (String aeroline : vuelos.keySet()) {
+            if (aerolinea.equals(aeroline)) {
+                for (Vuelo vuelo : vuelos.get(aeroline)) {
+                    if (vuelo.getClass().getSimpleName().equals("Regular")) {
+                        System.out.println(vuelo);
+                    }
+                }
+            }
+        }
+    }
 
-	}
+    /**
+     * Devuelve una lista con vuelos regulares con plazas libres
+     *
+     * @return aerolina Aerolina del avion charter con más capacidad
+     */
+    public List<Vuelo> plazasLibres() {
+        return null;
+    }
 
-	/**
-	 * Muestra los vuelos regulares de la aerolinea pasada por parametro, se
-	 * visualizaran de mayor a menor segun el numero de plazas
-	 * 
-	 * @param aerolinea
-	 *            Aerolinea de la que se imprimiran los vuelos regulares
-	 */
-	public void regularPorPlazas(String aerolinea) {
+    /**
+     * Muestra el numero de vuelos de cada aerolinea que llegan al destino pasado
+     * por parametro, ver resultados de ejecucion
+     *
+     * @param destino Destino del que se debe sacar la estadistica
+     */
+    public void estadisticaDestino(String destino) {
 
-	}
+    }
 
-	/**
-	 * Devuelve una lista con vuelos regulares con plazas libres
-	 * 
-	 * @return aerolina Aerolina del avion charter con más capacidad
-	 */
-	public List<Vuelo> plazasLibres() {
-		return null;
-	}
+    /**
+     * Borra los vuelos reservados por una empresa y devuelve el numero de vuelos
+     * borrados, utiliza un conjunto de entradas
+     *
+     * @param nifEmpresa
+     * @return numero de vuelos borrados
+     */
+    public int borrarVuelosEmpresa(String nifEmpresa) {
+        return 0;
+    }
 
-	/**
-	 * Muestra el numero de vuelos de cada aerolinea que llegan al destino pasado
-	 * por parametro, ver resultados de ejecucion
-	 * 
-	 * @param destino
-	 *            Destino del que se debe sacar la estadistica
-	 */
-	public void estadisticaDestino(String destino) {
+    /**
+     * Imprime la lista de vuelos pasada por parametro
+     *
+     * @param listaVuelos
+     */
+    public void imprimirListaVuelos(List<Vuelo> listaVuelos) {
 
-	}
+    }
 
-	/**
-	 * Borra los vuelos reservados por una empresa y devuelve el numero de vuelos
-	 * borrados, utiliza un conjunto de entradas
-	 * 
-	 * @param nifEmpresa
-	 * @return numero de vuelos borrados
-	 */
-	public int borrarVuelosEmpresa(String nifEmpresa) {
-return 0;
-	}
+    /**
+     * Represetación textual del mapa tal y como se muestra en el enunciado
+     */
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (String aerolinea : vuelos.keySet()) {
+            sb.append(aerolinea).append("\n");
+            sb.append("============").append("\n");
+            List<Vuelo> vuelosOrdenados = new ArrayList<>(vuelos.get(aerolinea));
+            vuelosOrdenados.sort(Vuelo::compareTo);
+            for (Vuelo vuelo : vuelosOrdenados) {
+                sb.append(vuelo.toString());
+            }
+        }
+        return sb.toString();
+    }
 
-	/**
-	 * Imprime la lista de vuelos pasada por parametro
-	 * 
-	 * @param listaVuelos
-	 */
-	public void imprimirListaVuelos(List<Vuelo> listaVuelos) {
+    /**
+     * Rellena el mapa haciendo uso de un fichero de texto
+     */
+    public void leerFicheroCursos() {
+        Scanner entrada = null;
+        try {
+            entrada = new Scanner(this.getClass().getResourceAsStream("..\\..\\aviones.txt"));
+            while (entrada.hasNextLine()) {
+                String linea = entrada.nextLine();
+                int pos = linea.indexOf(":");
+                String aerolinea = linea.substring(0, pos);
+                String[] vuelo = linea.substring(pos + 1).split(":");
+                String destino = vuelo[1];
+                String avion = vuelo[2];
+                int plazas = Integer.parseInt(vuelo[3].trim());
+                if (vuelo[0].equals("R")) {
+                    int plazasLibres = Integer.parseInt(vuelo[4].trim());
+                    this.addVuelo(aerolinea, new Regular(destino, avion, plazas, plazasLibres));
+                } else {
+                    String nifEmpresa = vuelo[4];
+                    this.addVuelo(aerolinea, new Charter(destino, avion, plazas, nifEmpresa));
+                }
+            }
 
-	}
-
-	/**
-	 * Represetación textual del mapa tal y como se muestra en el enunciado
-	 */
-	public String toString() {
-return null;
-	}
-
-	/**
-	 * Rellena el mapa haciendo uso de un fichero de texto
-	 */
-	public void leerFicheroCursos() {
-		Scanner entrada = null;
-		try {
-			entrada = new Scanner(this.getClass().getResourceAsStream("/aviones.txt"));
-			while (entrada.hasNextLine()) {
-				String linea = entrada.nextLine();
-				int pos = linea.indexOf(":");
-				String aerolinea = linea.substring(0, pos);
-				String[] vuelo = linea.substring(pos + 1).split(":");
-				String destino = vuelo[1];
-				String avion = vuelo[2];
-				int plazas = Integer.parseInt(vuelo[3].trim());
-				if (vuelo[0].equals("R")) {
-					int plazasLibres = Integer.parseInt(vuelo[4].trim());
-					this.addVuelo(aerolinea, new Regular(destino, avion, plazas, plazasLibres));
-				}
-				else {
-					String nifEmpresa = vuelo[4];
-					this.addVuelo(aerolinea, new Charter(destino, avion, plazas, nifEmpresa));
-				}
-			}
-
-		}
-
-		finally {
-			try {
-				entrada.close();
-			}
-			catch (NullPointerException e) {
-				System.out.println("Error en IO , no se ha creado el fichero");
-			}
-		}
-
-	}
-
+        } finally {
+            try {
+                entrada.close();
+            } catch (NullPointerException e) {
+                System.out.println("Error en IO , no se ha creado el fichero");
+            }
+        }
+    }
 }

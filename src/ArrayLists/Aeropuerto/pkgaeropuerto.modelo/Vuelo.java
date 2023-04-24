@@ -52,11 +52,16 @@ public abstract class Vuelo implements Comparable<Vuelo> {
     }
 
     @Override
-    public int compareTo(Vuelo o) {
-        if (o != null){
-            return o.getDestino().compareTo(this.destino);
+    public int compareTo(Vuelo v) {
+        int comparar = this.destino.compareTo(v.destino);
+        if (comparar != 0){
+            return comparar;
         }
-        return 0;
+        comparar = this.modelo.compareTo(v.modelo);
+        if (comparar != 0){
+            return comparar;
+        }
+        return Integer.compare(this.plazas, v.plazas);
     }
 
     @Override

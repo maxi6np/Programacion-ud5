@@ -145,7 +145,7 @@ public class Biblioteca {
     public int cargarDeFichero() {
         int noRegistrados = 0;
         try {
-            Scanner sc = new Scanner(new File("C:\\Users\\DAW1\\OneDrive\\Documentos\\Máximo\\CLASE MAXI\\PROGRAMACION\\TAREAS\\unidad5\\src\\ArrayLists\\Biblioteca\\libros.txt"));
+            Scanner sc = new Scanner(new File("C:\\Users\\nopem\\OneDrive\\Documentos\\Máximo\\CLASE MAXI\\PROGRAMACION\\TAREAS\\unidad5\\src\\ArrayLists\\Biblioteca\\libros.txt"));
             while (sc.hasNextLine()) {
                 Libro libro = new Libro(sc.nextLine());
                 boolean exito = addLibro(libro);

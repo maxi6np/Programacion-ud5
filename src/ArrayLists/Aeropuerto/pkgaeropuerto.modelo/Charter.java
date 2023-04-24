@@ -19,8 +19,11 @@ public class Charter extends Vuelo{
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("Vuelo ").append(this.getClass().getSimpleName());
+        sb.append("Vuelo ").append(this.getClass().getSimpleName()).append("\n");
+        sb.append("-------------------------\n");
+        sb.append(super.toString());
         sb.append("NIF: ").append(nif).append('\n');
+        sb.append("\n");
         return sb.toString();
     }
 }
