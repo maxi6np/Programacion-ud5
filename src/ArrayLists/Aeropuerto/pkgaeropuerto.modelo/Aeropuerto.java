@@ -11,8 +11,8 @@ public class Aeropuerto {
     }
 
     /**
-     * Añade un vuelo a la aerolinea correspondiente solo en el caso de que el vuelo
-     * no estuviese ya introducido, si la aerolinea no existiese se añade tanto la
+     * Aï¿½ade un vuelo a la aerolinea correspondiente solo en el caso de que el vuelo
+     * no estuviese ya introducido, si la aerolinea no existiese se aï¿½ade tanto la
      * aerolinea como el vuelo.
      */
     public void addVuelo(String aerolinea, Vuelo vuelo) {
@@ -40,7 +40,9 @@ public class Aeropuerto {
     public void regularPorPlazas(String aerolinea) {
         for (String aeroline : vuelos.keySet()) {
             if (aerolinea.equals(aeroline)) {
-                for (Vuelo vuelo : vuelos.get(aeroline)) {
+                List<Vuelo> vuelosOrdenados = new ArrayList<>(vuelos.get(aeroline));
+                vuelosOrdenados.sort(new ComparatorPlazas());
+                for (Vuelo vuelo : vuelosOrdenados) {
                     if (vuelo.getClass().getSimpleName().equals("Regular")) {
                         System.out.println(vuelo);
                     }
@@ -52,7 +54,7 @@ public class Aeropuerto {
     /**
      * Devuelve una lista con vuelos regulares con plazas libres
      *
-     * @return aerolina Aerolina del avion charter con más capacidad
+     * @return aerolina Aerolina del avion charter con mï¿½s capacidad
      */
     public List<Vuelo> plazasLibres() {
         return null;
@@ -89,7 +91,7 @@ public class Aeropuerto {
     }
 
     /**
-     * Represetación textual del mapa tal y como se muestra en el enunciado
+     * Represetaciï¿½n textual del mapa tal y como se muestra en el enunciado
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -22,7 +22,7 @@ public class Regular extends Vuelo{
         sb.append("Vuelo ").append(this.getClass().getSimpleName()).append("\n");
         sb.append("-------------------------\n");
         sb.append(super.toString());
-        sb.append("Plazas libres:").append(plazasLibres).append("\n");
+        sb.append("Plazas libres: ").append(plazasLibres).append("\n");
         sb.append("\n");
         return sb.toString();
     }
