@@ -1,4 +1,4 @@
-package ArraySinRepetidos;
+package ArraysBidimensionales.ArraySinRepetidos;
 
 public class Main {
     public static void main(String[] args) {

@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class EjemploHashSet {
-
     public static void main(String[] args) {
         // Creamos un HashSet para guardar algunos números
         HashSet<Integer> numeros = new HashSet<>();
@@ -42,5 +41,3 @@ public class EjemploHashSet {
         System.out.println("HashSet vaciado: " + numeros);
     }
 }
-
-

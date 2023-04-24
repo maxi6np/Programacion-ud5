@@ -80,7 +80,7 @@ public abstract class Inmueble implements Comparable<Inmueble>{
         sb.append(", superficie=").append(superficie);
         sb.append(", direccion=").append(direccion);
         sb.append(", estado=").append(estado);
-        sb.append('}');
+        sb.append("}");
         return sb.toString();
     }
 }

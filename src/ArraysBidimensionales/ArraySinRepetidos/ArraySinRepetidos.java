@@ -1,4 +1,4 @@
-package ArraySinRepetidos;
+package ArraysBidimensionales.ArraySinRepetidos;
 
 public class ArraySinRepetidos {
     public int[] elementos;

@@ -14,8 +14,7 @@ public class Aplicacion {
 
         // Si la palabra ya existe en el diccionario, añade el sinónimo al HashSet correspondiente
         if (miDiccionario.containsKey(palabra)) {
-            HashSet<String> sinonimos = miDiccionario.get(palabra);
-            sinonimos.add(sinonimo);
+            miDiccionario.get(palabra).add(sinonimo);
         } else {
             // Si la palabra no existe, crea un nuevo HashSet con el sinónimo y lo añade al HashMap
             HashSet<String> sinonimos = new HashSet<>();
@@ -24,42 +23,40 @@ public class Aplicacion {
         }
     }
 
-
     public boolean borrarSinonimo(String palabra, String sinonimo) {
-        // Busca la palabra en el diccionario
+        //Busca la palabra en el diccinario
         HashSet<String> sinonimos = miDiccionario.get(palabra);
-        if (sinonimos != null) {
-            // Si encuentra la palabra, elimina el sinónimo del conjunto correspondiente
+
+        if (sinonimo != null) {
+            //Si encuentra el sinonimo lo borra del grupo correspondiente
             boolean eliminado = sinonimos.remove(sinonimo);
             if (sinonimos.isEmpty()) {
-                // Si el conjunto queda vacío, elimina la palabra del diccionario
+                //Si el conjunto de sinonimos esta vacio, elimina la palabra
                 miDiccionario.remove(palabra);
             }
             return eliminado;
         } else {
-            // Si no encuentra la palabra, devuelve false
+            //Si no encuentra la palabra, devuelve false
             return false;
         }
+
     }
 
-
-    public HashSet<String> obtenerSinonimos(String palabra) {
+    public HashSet<String> obtenerSinonimo(String palabra) {
         return miDiccionario.get(palabra);
     }
 
-
     public void anadirDiccionario(HashMap<String, HashSet<String>> diccionario) {
 
-        for (String palabra : diccionario.keySet()) {
-            HashSet<String> sinonimos = miDiccionario.get(palabra);
-            for (String sinonimo : sinonimos) {
-                anadirSinonimo(palabra, sinonimo);
+        for (String clave : diccionario.keySet()) {
+            HashSet<String> sinonimos = diccionario.get(clave);
+            for (String sinonimo: sinonimos) {
+                anadirSinonimo(clave,sinonimo);
             }
         }
     }
 
     public void imprimirDiccionario() {
-
         for (String palabra : miDiccionario.keySet()) {
             System.out.print(palabra + ": ");
             HashSet<String> sinonimos = miDiccionario.get(palabra);
@@ -68,7 +65,6 @@ public class Aplicacion {
             }
             System.out.println();
         }
+
     }
-
-
 }
