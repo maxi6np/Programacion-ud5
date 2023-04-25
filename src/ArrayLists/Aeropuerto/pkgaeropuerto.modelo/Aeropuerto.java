@@ -108,7 +108,6 @@ public class Aeropuerto {
      */
     public int borrarVuelosEmpresa(String nifEmpresa) {
         Set<Map.Entry<String,Set<Vuelo>>> entrada = vuelos.entrySet();
-        String aerolinea;
 
 
         return 0;
