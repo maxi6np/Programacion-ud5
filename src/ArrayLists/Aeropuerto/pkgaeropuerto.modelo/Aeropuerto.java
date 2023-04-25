@@ -107,15 +107,11 @@ public class Aeropuerto {
      * @return numero de vuelos borrados
      */
     public int borrarVuelosEmpresa(String nifEmpresa) {
-        List<Charter> borrados = new ArrayList<>();
-        for (String aerolinea : vuelos.keySet()) {
-            for (Vuelo vuelo:vuelos.get(aerolinea)) {
-                if (vuelo instanceof Charter && ((Charter) vuelo).getNif().equals(nifEmpresa)){
-                    borrados.add((Charter) vuelo);
-                }
-            }
-        }
-        return borrados.size();
+        Set<Map.Entry<String,Set<Vuelo>>> entrada = vuelos.entrySet();
+        String aerolinea;
+
+
+        return 0;
     }
 
     /**
