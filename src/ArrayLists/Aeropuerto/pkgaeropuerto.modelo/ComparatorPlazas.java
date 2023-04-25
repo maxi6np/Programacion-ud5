@@ -2,11 +2,11 @@ package ArrayLists.Aeropuerto.pkgaeropuerto.modelo;
 
 import java.util.Comparator;
 
-public class ComparatorPlazas implements Comparator<Vuelo> {
+public class ComparatorPlazas implements Comparator<Regular> {
     @Override
-    public int compare(Vuelo o1, Vuelo o2) {
+    public int compare(Regular o1, Regular o2) {
         if (o1!= null && o2!=null){
-            return Integer.compare(o1.getPlazas(),o2.getPlazas());
+            return Integer.compare(o2.getPlazasLibres(),o1.getPlazasLibres());
         }
         return 0;
     }
