@@ -1,4 +1,4 @@
-package ArrayLists.Aeropuerto.pkgaeropuerto.modelo;
+package ArrayLists.Aeropuerto.modelo;
 
 public class Regular extends Vuelo{
     public int plazasLibres;

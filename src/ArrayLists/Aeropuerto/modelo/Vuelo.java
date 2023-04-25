@@ -1,4 +1,4 @@
-package ArrayLists.Aeropuerto.pkgaeropuerto.modelo;
+package ArrayLists.Aeropuerto.modelo;
 
 import java.util.Comparator;
 import java.util.Objects;

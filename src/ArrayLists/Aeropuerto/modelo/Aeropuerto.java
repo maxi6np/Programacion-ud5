@@ -1,4 +1,4 @@
-package ArrayLists.Aeropuerto.pkgaeropuerto.modelo;
+package ArrayLists.Aeropuerto.modelo;
 
 import java.util.*;
 
@@ -121,6 +121,52 @@ public class Aeropuerto {
     }
 
     /**
+     * Para una aerolínea, calcula el número total de viajeros entre todos sus vuelos. El cálculo del
+     * número de viajeros se hará de la siguiente manera:
+     * • Vuelos Charter: será igual al número de plazas del vuelo.
+     * • Vuelos Regulares: será la resta del número de plazas del vuelo menos el de plazas libres.
+     * El resultado de ejecución para la aerolínea “AA” sería:
+     * La aerolínea AA ha desplazado a 1170 pasajeros
+     */
+    public void imprimirPasajerosPorAerolinea(String aerolinea) {
+        int viajeros = 0;
+        for (Vuelo vuelo : vuelos.get(aerolinea)) {
+            if (vuelo instanceof Charter) {
+                viajeros += vuelo.getPlazas();
+            }
+            if (vuelo instanceof Regular) {
+                viajeros += (vuelo.getPlazas() - ((Regular) vuelo).getPlazasLibres());
+            }
+        }
+        System.out.println("La aerolinea " + aerolinea + " ha desplazado a " + viajeros + " pasajeros.");
+    }
+
+
+    /**
+     * Imprime, por cada línea, los vuelos cuyo número de plazas es igual o superior al número de
+     * plazas de todos los vuelos de esa aerolínea.
+     */
+    public void imprimirVuelosMasPasajerosQueMedia() {
+        for (String aerolinea : vuelos.keySet()) {
+            double suma = 0;
+            int cantidad = 0;
+            for (Vuelo vuelo : vuelos.get(aerolinea)) {
+                suma += vuelo.getPlazas();
+                cantidad++;
+            }
+            double media = suma / cantidad;
+            System.out.println("La media de las plazas de los vuelos de " + aerolinea + " es " + media);
+            System.out.println("Los vuelos de " + aerolinea + " con mas media son : ");
+            for (Vuelo vuelo : vuelos.get(aerolinea)) {
+                if (media <= vuelo.getPlazas()){
+                    System.out.println(vuelo);
+                }
+            }
+        }
+    }
+
+
+    /**
      * Imprime la lista de vuelos pasada por parametro
      *
      * @param listaVuelos
@@ -152,7 +198,7 @@ public class Aeropuerto {
     public void leerFicheroCursos() {
         Scanner entrada = null;
         try {
-            entrada = new Scanner(this.getClass().getResourceAsStream("..\\..\\aviones.txt"));
+            entrada = new Scanner(this.getClass().getResourceAsStream("..\\aviones.txt"));
             while (entrada.hasNextLine()) {
                 String linea = entrada.nextLine();
                 int pos = linea.indexOf(":");
