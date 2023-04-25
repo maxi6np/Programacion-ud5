@@ -68,7 +68,7 @@ public class Aeropuerto {
 
         for (Set<Vuelo> vuelos : vuelos.values()) {
             for (Vuelo vuelo : vuelos) {
-                if (vuelo instanceof Regular && ((Regular) vuelo).getPlazasLibres() > 0){
+                if (vuelo instanceof Regular && ((Regular) vuelo).getPlazasLibres() > 0) {
                     plazasLibres.add(vuelo);
                 }
             }
@@ -84,11 +84,11 @@ public class Aeropuerto {
      * @param destino Destino del que se debe sacar la estadistica
      */
     public void estadisticaDestino(String destino) {
-        for (String aerolinea : vuelos.keySet()){
+        for (String aerolinea : vuelos.keySet()) {
             int contador = 0;
             int totalViajes = 0;
             for (Vuelo vuelo : vuelos.get(aerolinea)) {
-                if (vuelo.getDestino().equals(destino)){
+                if (vuelo.getDestino().equals(destino)) {
                     contador++;
                 }
                 totalViajes++;
@@ -107,10 +107,17 @@ public class Aeropuerto {
      * @return numero de vuelos borrados
      */
     public int borrarVuelosEmpresa(String nifEmpresa) {
-        Set<Map.Entry<String,Set<Vuelo>>> entrada = vuelos.entrySet();
-
-
-        return 0;
+        int vuelosBorrados = 0;
+        Iterator<Map.Entry<String, Set<Vuelo>>> it = vuelos.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, Set<Vuelo>> siguiente = it.next();
+            for (Vuelo vuelo : siguiente.getValue()) {
+                if (vuelo instanceof Charter && ((Charter) vuelo).getNif().equals(nifEmpresa)) {
+                    vuelosBorrados++;
+                }
+            }
+        }
+        return vuelosBorrados;
     }
 
     /**
@@ -119,7 +126,7 @@ public class Aeropuerto {
      * @param listaVuelos
      */
     public void imprimirListaVuelos(List<Vuelo> listaVuelos) {
-        for (Vuelo vuelo:listaVuelos) {
+        for (Vuelo vuelo : listaVuelos) {
             System.out.println(vuelo);
         }
     }
