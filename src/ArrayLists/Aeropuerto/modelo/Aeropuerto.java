@@ -178,7 +178,22 @@ public class Aeropuerto {
     }
 
     /**
-     * Represetaci�n textual del mapa tal y como se muestra en el enunciado
+     * Crea un método que muestre los vuelos de una aerolínea ordenados por precio de billete
+     * ascendentemente (de más barato a más caro).
+     * @param aerolinea
+     */
+    public void imprimirVuelosPorAerolineaOrdenadosPorPrecio(String aerolinea){
+        System.out.println("Vuelos de la aerolinea " + aerolinea + " ordenados por precio ascendentemente");
+
+        List<Vuelo> listaVuelos = new ArrayList<>(vuelos.get(aerolinea));
+        listaVuelos.sort(new ComparadorPrecio());
+        for (Vuelo vuelos: listaVuelos) {
+            System.out.println(vuelos);
+        }
+    }
+
+    /**
+     * Represetacion textual del mapa tal y como se muestra en el enunciado
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -207,12 +222,13 @@ public class Aeropuerto {
                 String destino = vuelo[1];
                 String avion = vuelo[2];
                 int plazas = Integer.parseInt(vuelo[3].trim());
+                int precio = Integer.parseInt(vuelo[5].trim());
                 if (vuelo[0].equals("R")) {
                     int plazasLibres = Integer.parseInt(vuelo[4].trim());
-                    this.addVuelo(aerolinea, new Regular(destino, avion, plazas, plazasLibres));
+                    this.addVuelo(aerolinea, new Regular(destino, avion, plazas, precio, plazasLibres));
                 } else {
                     String nifEmpresa = vuelo[4];
-                    this.addVuelo(aerolinea, new Charter(destino, avion, plazas, nifEmpresa));
+                    this.addVuelo(aerolinea, new Charter(destino, avion, plazas, precio, nifEmpresa));
                 }
             }
 

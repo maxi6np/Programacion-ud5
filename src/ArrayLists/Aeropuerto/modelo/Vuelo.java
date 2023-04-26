@@ -1,17 +1,20 @@
 package ArrayLists.Aeropuerto.modelo;
 
 import java.util.Comparator;
+import java.util.IllegalFormatCodePointException;
 import java.util.Objects;
 
 public abstract class Vuelo implements Comparable<Vuelo> {
     protected String destino;
     protected String modelo;
     protected int plazas;
+    protected int precio;
 
-    public Vuelo(String destino, String modelo, int plazas){
+    public Vuelo(String destino, String modelo, int plazas, int precio){
         this.destino = destino;
         this.modelo = modelo;
         this.plazas = plazas;
+        this.precio = precio;
     }
 
     public String getDestino() {
@@ -36,6 +39,14 @@ public abstract class Vuelo implements Comparable<Vuelo> {
 
     public void setPlazas(int plazas) {
         this.plazas = plazas;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 
     @Override
@@ -63,6 +74,8 @@ public abstract class Vuelo implements Comparable<Vuelo> {
         }
         return Integer.compare(this.plazas, v.plazas);
     }
+
+    public abstract double precioBillete();
 
     @Override
     public String toString() {

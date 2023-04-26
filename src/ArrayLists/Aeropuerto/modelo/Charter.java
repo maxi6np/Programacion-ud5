@@ -3,8 +3,8 @@ package ArrayLists.Aeropuerto.modelo;
 public class Charter extends Vuelo{
     public String nif;
 
-    public Charter(String destino, String modelo, int plazas, String nif) {
-        super(destino, modelo, plazas);
+    public Charter(String destino, String modelo, int plazas, int precio, String nif) {
+        super(destino, modelo, plazas, precio);
         this.nif = nif;
     }
 
@@ -17,11 +17,22 @@ public class Charter extends Vuelo{
     }
 
     @Override
+    public double precioBillete() {
+        double precio2 = precio * 1.25;
+        if (plazas < 200){
+            precio2 += 50;
+        }
+        return precio2;
+
+    }
+
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("Vuelo ").append(this.getClass().getSimpleName()).append("\n");
         sb.append("-------------------------\n");
         sb.append(super.toString());
+        sb.append("Precio billete: ").append(precioBillete()).append("€").append("\n");
         sb.append("NIF: ").append(nif).append('\n');
         sb.append("\n");
         return sb.toString();
