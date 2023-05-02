@@ -11,24 +11,18 @@ public class Aeropuerto {
     }
 
     /**
-     * A�ade un vuelo a la aerolinea correspondiente solo en el caso de que el vuelo
-     * no estuviese ya introducido, si la aerolinea no existiese se a�ade tanto la
+     * Añade un vuelo a la aerolinea correspondiente solo en el caso de que el vuelo
+     * no estuviese ya introducido, si la aerolinea no existiese se añade tanto la
      * aerolinea como el vuelo.
      */
     public void addVuelo(String aerolinea, Vuelo vuelo) {
-        if (!vuelos.containsKey(aerolinea)) {
-            vuelos.put(aerolinea, new TreeSet<>());
-        }
-        Set<Vuelo> vueloAerolinea = vuelos.get(aerolinea);
-        vueloAerolinea.add(vuelo);
-
-        /*if (vuelos.containsKey(aerolinea)){
+        if (vuelos.containsKey(aerolinea)){
             vuelos.get(aerolinea).add(vuelo);
         } else{
-            Set vueloAerlinea = new TreeSet();
-            vueloAerlinea.add(vuelo);
-            vuelos.put(aerolinea,vueloAerlinea);
-        }*/
+            Set <Vuelo> vueloAerolinea = new TreeSet<>();
+            vueloAerolinea.add(vuelo);
+            vuelos.put(aerolinea,vueloAerolinea);
+        }
     }
 
     /**
@@ -41,7 +35,7 @@ public class Aeropuerto {
 
     /**
      * Muestra los vuelos regulares de la aerolinea pasada por parametro, se
-     * visualizaran de mayor a menor segun el numero de plazas
+     * visualizarán de mayor a menor segun el número de plazas
      *
      * @param aerolinea Aerolinea de la que se imprimiran los vuelos regulares
      */
@@ -61,7 +55,7 @@ public class Aeropuerto {
     /**
      * Devuelve una lista con vuelos regulares con plazas libres
      *
-     * @return aerolina Aerolina del avion charter con mas capacidad
+     * @return aerolina del avion charter con más capacidad
      */
     public List<Vuelo> plazasLibres() {
         List<Vuelo> plazasLibres = new ArrayList<>();
@@ -78,7 +72,7 @@ public class Aeropuerto {
     }
 
     /**
-     * Muestra el numero de vuelos de cada aerolinea que llegan al destino pasado
+     * Muestra el número de vuelos de cada aerolinea que llegan al destino pasado
      * por parametro, ver resultados de ejecucion
      *
      * @param destino Destino del que se debe sacar la estadistica
@@ -100,7 +94,7 @@ public class Aeropuerto {
     }
 
     /**
-     * Borra los vuelos reservados por una empresa y devuelve el numero de vuelos
+     * Borra los vuelos reservados por una empresa y devuelve el número de vuelos
      * borrados, utiliza un conjunto de entradas
      *
      * @param nifEmpresa
@@ -108,11 +102,16 @@ public class Aeropuerto {
      */
     public int borrarVuelosEmpresa(String nifEmpresa) {
         int vuelosBorrados = 0;
+        //Iteramos sobre el mapa original
         Iterator<Map.Entry<String, Set<Vuelo>>> it = vuelos.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry<String, Set<Vuelo>> siguiente = it.next();
-            for (Vuelo vuelo : siguiente.getValue()) {
+            //Iteramos sobre el set de cada entrada
+            Iterator<Vuelo> itVuelos = it.next().getValue().iterator();
+            while (itVuelos.hasNext()) {
+                //Asignamos cada vuelo al iterador
+                Vuelo vuelo = itVuelos.next();
                 if (vuelo instanceof Charter && ((Charter) vuelo).getNif().equals(nifEmpresa)) {
+                    itVuelos.remove();
                     vuelosBorrados++;
                 }
             }

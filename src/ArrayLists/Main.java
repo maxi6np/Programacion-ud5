@@ -1,25 +1,20 @@
 package ArrayLists;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int[][] matriz = new int[4][];
 
-        for (int i = 0; i < matriz.length; i++) {
-            System.out.println("Índices que va a tener la fila " + (i + 1));
-            int nColumnas = sc.nextInt();
-            matriz[i] = new int[nColumnas];
-        }
+        /* Declaramos la varible ya que sino no podemos usarla
+         * en el while por el tema de ámbito
+         */
+        int codigo;
+        do {
+            String texto = JOptionPane.showInputDialog("Introduce un numero mayor que 0");
+            codigo = Integer.parseInt(texto);
+        } while (codigo <= 0);
 
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                matriz[i][j] = 1;
-                System.out.print(matriz[i][j] + " ");
-            }
-            System.out.println();
-        }
-
+        System.out.println(codigo);
     }
 }

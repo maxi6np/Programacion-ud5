@@ -15,8 +15,8 @@ public class AppAeropuerto {
 		System.out.println("\nLista de vuelos con plazas libres\n");
 		aeropuerto.imprimirListaVuelos(aeropuerto.plazasLibres());
 		aeropuerto.estadisticaDestino("MAD");
-		System.out.println("\nSe han borrado " + aeropuerto.borrarVuelosEmpresa("98735424") + " vuelos");
-		aeropuerto.imprimirPasajerosPorAerolinea("AA");
+		*/System.out.println("\nSe han borrado " + aeropuerto.borrarVuelosEmpresa("98735424") + " vuelos");
+		/*aeropuerto.imprimirPasajerosPorAerolinea("AA");
 		aeropuerto.imprimirVuelosMasPasajerosQueMedia();
 		aeropuerto.imprimirVuelosPorAerolineaOrdenadosPorPrecio("Vueling");*/
 

@@ -32,7 +32,6 @@ public class Charter extends Vuelo{
         sb.append("Vuelo ").append(this.getClass().getSimpleName()).append("\n");
         sb.append("-------------------------\n");
         sb.append(super.toString());
-        sb.append("Precio billete: ").append(precioBillete()).append("€").append("\n");
         sb.append("NIF: ").append(nif).append('\n');
         sb.append("\n");
         return sb.toString();
